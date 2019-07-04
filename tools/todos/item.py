@@ -1,6 +1,6 @@
 from os import path
 import sys
-sys.path.append(path.join(path.dirname(path.dirname(path.abspath(__file__))), '..'))
+sys.path.append(path.join(path.dirname(path.abspath(__file__)), '..', '..', 'lib'))
 from lib.log import get_logger
 import datetime
 

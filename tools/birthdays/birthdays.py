@@ -1,10 +1,10 @@
 from os import path
 import sys
-sys.path.append(path.join(path.dirname(path.dirname(path.abspath(__file__))), '..'))
+sys.path.append(path.join(path.dirname(path.abspath(__file__)), '..', '..', 'lib'))
 import argparse
 import re
 
-from lib.log import get_logger, add_debug_argument
+from lib.log import get_logger, add_logging_arguments
 from lib.print.pretty import *
 from lib.print.color_string import *
 
@@ -23,7 +23,7 @@ def birthday_type(input, pattern=re.compile(r"\d{4}-\d{2}-\d{2}")):
 
 def get_parser():
     parser = argparse.ArgumentParser()
-    parser = add_debug_argument(parser)
+    add_logging_arguments(parser)
 
     subparsers = parser.add_subparsers(dest='cmd')
 

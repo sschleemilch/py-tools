@@ -1,7 +1,7 @@
 from platform import uname
 from os import environ, path
 import sys
-sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+sys.path.append(path.join(path.dirname(path.abspath(__file__)), '..', 'lib'))
 from lib.print.pretty import *
 from lib.print.color_string import Color
 
@@ -13,9 +13,9 @@ args = None
 def parse_args():
     global args
     parser = argparse.ArgumentParser(prog='SYSTEM')
-    parser.add_argument('-ev', '--environment-vars', action='store_true',
+    parser.add_argument('-e', '--environment-vars', action='store_true',
                         dest='environment_vars', help='Lists all set environment variables')
-    parser.add_argument('-py', '--python-infos', action='store_true',
+    parser.add_argument('-p', '--python-infos', action='store_true',
                         dest='python', help='Lists information about the python installation')
     args = parser.parse_args()
 

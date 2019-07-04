@@ -1,6 +1,6 @@
 from os import path
 import sys
-sys.path.append(path.join(path.dirname(path.dirname(path.abspath(__file__))), '..'))
+sys.path.append(path.join(path.dirname(path.abspath(__file__)), '..', '..', 'lib'))
 
 from lib.log import get_logger
 from lib.json_database import JSONDatabase
@@ -25,6 +25,6 @@ class URLFavouriteDatabase(JSONDatabase):
     def set_browser(self, browser, path):
         self.data['browser'] = browser
         if path is not None:
-            LOGGER.info("Setting browser '" + browser + "' path to '" + path + "'")
+            LOGGER.info("Setting browser '%s' path to '%s'", browser, path)
             self.data['browser_path'] = path
         self.save()

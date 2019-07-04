@@ -1,10 +1,10 @@
 from os import path
 import sys
-sys.path.append(path.join(path.dirname(path.dirname(path.abspath(__file__))), '..'))
+sys.path.append(path.join(path.dirname(path.abspath(__file__)), '..', '..', 'lib'))
 
 from lib.print.pretty import *
 from lib.print.color_string import Color
-from lib.log import get_logger, add_debug_argument
+from lib.log import get_logger, add_logging_arguments
 
 from database import URLFavouriteDatabase
 
@@ -18,7 +18,7 @@ DATABASE = None
 
 def parse_args():
     parser = argparse.ArgumentParser('FAV')
-    parser = add_debug_argument(parser)
+    add_logging_arguments(parser)
 
     subparsers = parser.add_subparsers(help='sub-commands help', dest='cmd')
 
@@ -32,8 +32,9 @@ def parse_args():
     parser_add.add_argument('--alias', '-a', required=True, help='Alias for the URL')
 
     parser_del = subparsers.add_parser('del', help='Delete favourite sites or groups')
-    parser_del.add_argument('--group', '-g', required=True, help='Specify the group to remove')
-    parser_del.add_argument('--alias', '-a', required=False, help='Specify the URL to remove')
+    parser_del.add_argument('--group', '-g', required=False, help='Specify the group to remove')
+    parser_del.add_argument('--alias', '-a', required=False, help='Specify the URL alias to remove')
+    parser_del.add_argument('--url', '-u', required=False, help='Specify the URL or patter to remove')
 
     parser_list = subparsers.add_parser('list', help='Lists your current favourites')
     parser_list_group = parser_list.add_mutually_exclusive_group()
@@ -69,21 +70,22 @@ def main():
     if args.cmd == 'config':
         set_browser(args.browser, args.path)
 
-    if args.cmd == 'add':
+    elif args.cmd == 'add':
         add_URL(args.group, args.url, args.alias)
 
-    if args.cmd == 'del':
+    elif args.cmd == 'del':
         pass
 
-    if args.cmd == 'list':
+    elif args.cmd == 'list':
         pass
 
-    if args.cmd == 'open':
+    elif args.cmd == 'open':
         pass
 
-    if args.cmd == 'rename':
+    elif args.cmd == 'rename':
         pass
-
+    else:
+        LOGGER.error("Wrong usage. See --help/-h for help.")
 
 if __name__ == '__main__':
     main()

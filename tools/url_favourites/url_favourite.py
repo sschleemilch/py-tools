@@ -1,6 +1,6 @@
 from os import path
 import sys
-sys.path.append(path.join(path.dirname(path.dirname(path.abspath(__file__))), '..'))
+sys.path.append(path.join(path.dirname(path.abspath(__file__)), '..', '..', 'lib'))
 
 import webbrowser
 
@@ -23,7 +23,7 @@ class URLFavourite():
             self.group = "None"
 
     def reachable(self):
-        LOGGER.debug("Checking if url '" + self.url + "' is reachable.")
+        LOGGER.debug("Checking if url '%s' is reachable", self.url)
         try:
             request = Request(self.url)
             urlopen(request, timeout=2)
@@ -39,4 +39,4 @@ class URLFavourite():
         try:
             webbrowser.get(browser).open_new_tab(self.url)
         except webbrowser.Error as e:
-            LOGGER.error('Could not open website: ' + str(e))
+            LOGGER.error("Could not open website '%s'", e)
